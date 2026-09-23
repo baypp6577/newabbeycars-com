@@ -152,8 +152,13 @@ a { color: inherit; }
   padding: 8px 14px;
   border-radius: 8px;
   font-weight: 700;
+  position: relative;
 }
-.call svg { width: 18px; height: 18px; flex-shrink: 0; }
+.call svg { width: 18px; height: 18px; flex-shrink: 0; position: relative; z-index: 1; }
+.call-label {
+  display: block;
+  line-height: 1.15;
+}
 .call small {
   display: block;
   font-size: 0.65rem;
@@ -161,6 +166,7 @@ a { color: inherit; }
   text-transform: uppercase;
   opacity: 0.9;
 }
+.call-number { display: block; }
 
 .hero {
   position: relative;
@@ -773,17 +779,72 @@ footer a { color: var(--gold-soft); }
 #coverage { padding: 16px 0 28px; }
 
 @media (max-width: 1024px) {
+  .topbar {
+    padding: 10px 0 12px;
+  }
   .topbar-inner {
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand toggle"
+      "call call";
+    column-gap: 10px;
+    row-gap: 8px;
+    align-items: center;
     position: relative;
   }
-  .brand { flex: 1; min-width: 0; }
-  .menu-toggle { display: inline-flex; order: 2; }
-  .call {
-    order: 3;
-    padding: 8px 10px;
+  .brand {
+    grid-area: brand;
+    flex: 1;
+    min-width: 0;
   }
-  .call span small { display: none; }
+  .menu-toggle {
+    display: inline-flex;
+    grid-area: toggle;
+    justify-self: end;
+  }
+  .call {
+    grid-area: call;
+    justify-self: center;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    flex: none;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .call svg {
+    width: 15px;
+    height: 15px;
+  }
+  .call-label {
+    position: static;
+    display: block;
+    width: auto;
+    max-width: none;
+    padding: 0;
+    opacity: 1;
+    transform: none;
+    overflow: visible;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    pointer-events: auto;
+    transition: none;
+  }
+  .call-label small { display: none; }
+  .call-number {
+    display: block;
+    font-size: 0.92rem;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+  }
   #site-nav {
     display: none;
     position: absolute;
@@ -903,13 +964,17 @@ footer a { color: var(--gold-soft); }
   .hero-photo,
   .hero-copy { min-height: 340px; }
   .hero-copy { padding: 0; }
-  .call { white-space: normal; }
   .tire-visual { justify-content: center; }
   .tire-photo { height: 200px; }
 }
 
 @media (max-width: 560px) {
-  .call span { font-size: 0.85rem; }
+  .call {
+    padding: 6px 12px;
+    font-size: 0.84rem;
+  }
+  .call svg { width: 14px; height: 14px; }
+  .call-number { font-size: 0.84rem; }
   .brand-mark { width: 32px; height: 32px; }
   .brand strong,
   .brand em {
