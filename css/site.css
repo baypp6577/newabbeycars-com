@@ -700,7 +700,7 @@ footer a { color: var(--gold-soft); }
   .hero,
   .hero-photo,
   .hero-copy { min-height: 340px; }
-  .hero-copy { padding-top: 14px; }
+  .hero-copy { padding: 0; }
   .call { white-space: normal; }
   .tire-visual { justify-content: center; }
   .tire-photo { height: 200px; }
@@ -709,4 +709,16 @@ footer a { color: var(--gold-soft); }
 @media (max-width: 560px) {
   .call span { font-size: 0.85rem; }
   .brand strong { font-size: 1.2rem; }
+}
+
+/* ~17" screens and up: pull hero up so it is not so tall / low */
+@media (min-width: 1600px) {
+  .hero,
+  .hero-photo,
+  .hero-copy { min-height: 400px; }
+  .hero-copy {
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 56px;
+  }
 }
