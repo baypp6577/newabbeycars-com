@@ -810,7 +810,7 @@ footer a { color: var(--gold-soft); }
   .hero-copy { min-height: 360px; }
   .hero { margin-bottom: 48px; }
   .hero-photo {
-    background-position: center bottom;
+    background-position: center 40%;
   }
   .hero-copy {
     align-items: flex-start;
