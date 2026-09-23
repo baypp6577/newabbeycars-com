@@ -265,14 +265,13 @@ a { color: inherit; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 12px 14px;
 }
 .office-bar-label {
-  margin: 0;
-  padding: 8px 0;
+  margin: 0 12px 0 0;
+  padding: 6px 0;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fff;
   background: transparent;
@@ -280,6 +279,9 @@ a { color: inherit; }
   line-height: 1.2;
   white-space: nowrap;
   align-self: center;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  transform: none;
   text-shadow: 0 1px 3px rgba(15, 28, 48, 0.55);
 }
 .office-switch {
