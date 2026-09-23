@@ -203,7 +203,7 @@ a { color: inherit; }
   grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
   gap: 28px;
   align-items: stretch;
-  margin-top: 28px;
+  margin-top: 96px;
   position: relative;
   z-index: 2;
 }
@@ -769,7 +769,7 @@ footer a { color: var(--gold-soft); }
 @media (max-width: 900px) {
   .page-split {
     grid-template-columns: 1fr;
-    margin-top: 20px;
+    margin-top: 88px;
   }
   .page-book {
     grid-column: 1;
@@ -818,6 +818,9 @@ footer a { color: var(--gold-soft); }
     padding-top: 48px;
   }
   .office-bar {
-    transform: translate(-50%, 36%);
+    transform: translate(-50%, 45%);
+  }
+  .page-split {
+    margin-top: 110px;
   }
 }
