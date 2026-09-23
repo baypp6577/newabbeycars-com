@@ -157,7 +157,6 @@ a { color: inherit; }
 .hero {
   position: relative;
   overflow: hidden;
-  background: #fff;
 }
 .hero-photo {
   position: relative;
@@ -165,9 +164,12 @@ a { color: inherit; }
   background: #1a1a1a center / cover no-repeat;
 }
 .hero-copy {
-  position: relative;
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
   z-index: 1;
-  padding: 18px 0 14px;
+  padding: 0;
 }
 .badge {
   display: inline-block;
@@ -668,7 +670,7 @@ footer a { color: var(--gold-soft); }
   .flow-body { padding-top: 18px; }
   .cards, .cards-3, .cards-2, .rescue-grid, .steps, .grid-2 { grid-template-columns: 1fr; }
   .hero-photo { height: 280px; }
-  .hero-copy { padding: 14px 0 10px; }
+  .hero-copy { top: 8px; }
   .call { white-space: normal; }
   .tire-visual { justify-content: center; }
   .tire-photo { height: 200px; }
