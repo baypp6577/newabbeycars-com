@@ -156,18 +156,18 @@ a { color: inherit; }
 
 .hero {
   position: relative;
-  min-height: 420px;
   overflow: hidden;
+  background: #fff;
 }
 .hero-photo {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  height: 420px;
   background: #1a1a1a center / cover no-repeat;
 }
 .hero-copy {
   position: relative;
   z-index: 1;
-  padding: 56px 0 40px;
+  padding: 18px 0 14px;
 }
 .badge {
   display: inline-block;
@@ -178,7 +178,7 @@ a { color: inherit; }
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border: 2px solid var(--gold);
 }
 
@@ -208,9 +208,11 @@ a { color: inherit; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 12px 18px;
   margin-top: 22px;
   margin-bottom: 4px;
+  text-align: center;
 }
 .office-bar-label {
   margin: 0;
@@ -665,8 +667,8 @@ footer a { color: var(--gold-soft); }
   .brands-stage { padding: 22px 12px 16px; border-radius: 14px; }
   .flow-body { padding-top: 18px; }
   .cards, .cards-3, .cards-2, .rescue-grid, .steps, .grid-2 { grid-template-columns: 1fr; }
-  .hero { min-height: 280px; }
-  .hero-copy { padding: 36px 0 32px; }
+  .hero-photo { height: 280px; }
+  .hero-copy { padding: 14px 0 10px; }
   .call { white-space: normal; }
   .tire-visual { justify-content: center; }
   .tire-photo { height: 200px; }
