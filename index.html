@@ -55,16 +55,52 @@
       <div class="wrap hero-copy">
         <p class="badge">A local business with over 30 years of service at this location</p>
       </div>
-    </section>
-
-    <div class="wrap office-bar" id="services">
-      <p class="office-bar-label">I need</p>
-      <div class="office-switch" role="tablist" aria-label="Tyres or Cab Office">
-        <button type="button" class="office-tab is-active" role="tab" id="tab-tires" data-office="tires" aria-selected="true" aria-controls="abbey-tires">Tyres</button>
-        <button type="button" class="office-tab" role="tab" id="tab-cars" data-office="cars" aria-selected="false" aria-controls="abbey-cars">Cab Office</button>
-        <button type="button" class="office-tab" role="tab" id="tab-both" data-office="both" aria-selected="false">Both</button>
+      <div class="wrap office-bar" id="services">
+        <canvas class="office-glass-canvas" id="office-glass-canvas" aria-hidden="true"></canvas>
+        <div class="office-bar-inner">
+        <p class="office-bar-label">I need</p>
+        <div class="office-switch" role="tablist" aria-label="Tyres or Cab Office">
+          <button type="button" class="office-tab is-active" role="tab" id="tab-tires" data-office="tires" aria-selected="true" aria-controls="abbey-tires">
+            <svg class="office-tab-icon" viewBox="0 0 48 48" aria-hidden="true">
+              <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="5"/>
+              <circle cx="24" cy="24" r="19.5" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2.2 3.4"/>
+              <circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="3"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor"/>
+              <path fill="none" stroke="currentColor" stroke-width="2.5" d="M24 8v6M24 34v6M8 24h6M34 24h6"/>
+            </svg>
+            <span>Tyres</span>
+          </button>
+          <button type="button" class="office-tab" role="tab" id="tab-cars" data-office="cars" aria-selected="false" aria-controls="abbey-cars">
+            <svg class="office-tab-icon office-tab-icon--cab" viewBox="0 0 64 48" aria-hidden="true">
+              <rect class="cab-hat" x="26" y="2" width="12" height="8" rx="1.5" fill="currentColor"/>
+              <path class="cab-hat-stem" fill="currentColor" d="M29 10h6v3h-6z"/>
+              <path fill="currentColor" d="M6 28h10l6-10h20l8 10h8v12H6V28zm14 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm24 0a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/>
+              <rect x="24" y="22" width="10" height="6" rx="1" fill="#0f1c30" opacity=".4"/>
+              <rect x="36" y="22" width="8" height="6" rx="1" fill="#0f1c30" opacity=".4"/>
+            </svg>
+            <span>Cab Office</span>
+          </button>
+          <button type="button" class="office-tab" role="tab" id="tab-both" data-office="both" aria-selected="false">
+            <svg class="office-tab-icon office-tab-icon--pair" viewBox="0 0 64 48" aria-hidden="true">
+              <g transform="translate(-2 4)">
+                <circle cx="18" cy="22" r="14" fill="none" stroke="currentColor" stroke-width="4"/>
+                <circle cx="18" cy="22" r="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.8 2.8"/>
+                <circle cx="18" cy="22" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
+                <circle cx="18" cy="22" r="3" fill="currentColor"/>
+              </g>
+              <g transform="translate(14 4)">
+                <circle cx="30" cy="22" r="14" fill="none" stroke="currentColor" stroke-width="4"/>
+                <circle cx="30" cy="22" r="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.8 2.8"/>
+                <circle cx="30" cy="22" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/>
+                <circle cx="30" cy="22" r="3" fill="currentColor"/>
+              </g>
+            </svg>
+            <span>Both</span>
+          </button>
+        </div>
+        </div>
       </div>
-    </div>
+    </section>
 
     <div class="wrap page-split">
       <div class="page-rest">
@@ -239,6 +275,8 @@
       </div>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
+  <script src="js/office-glass.js" defer></script>
   <script src="js/site.js"></script>
 </body>
 </html>
