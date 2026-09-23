@@ -123,11 +123,13 @@
               <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="3" d="M24 5v6M24 37v6M5 24h6M37 24h6M9 9l4.2 4.2M34.8 34.8 39 39M9 39l4.2-4.2M34.8 13.2 39 9"/></svg>
               <h3>Tire Center</h3>
               <p>Bring the car to the yard — new tyres fitted here, including punctures and replacements.</p>
+              <button type="button" class="card-book" data-book-service="tire" data-book-topic="Tire Center">Book now</button>
             </article>
             <article class="card">
               <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M14 8h6l10 18h8v4H28L18 12h-4v24H8V8h6zm22 22 4 10H18l4-10h14z"/></svg>
               <h3>Full Mechanic</h3>
               <p>We get you and your car back serviced — brakes, diagnostics and repairs.</p>
+              <button type="button" class="card-book" data-book-service="tire" data-book-topic="Full Mechanic">Book now</button>
             </article>
           </div>
         </div>
@@ -151,31 +153,37 @@
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M8 20h6l4-8h12l6 8h4v12H8V20zm8 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
                   <h3>Airport &amp; Station Transfers</h3>
                   <p>On-time pickups for airports and stations across London.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="Airport & Station Transfers">Book now</button>
                 </article>
                 <article class="card">
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 8a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 20c7 0 16 3.5 16 8v4H8v-4c0-4.5 9-8 16-8z"/></svg>
                   <h3>Meet &amp; Greet</h3>
                   <p>Your driver meets you at arrivals or the station entrance.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="Meet & Greet">Book now</button>
                 </article>
                 <article class="card">
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M10 20h8l4-8h12l5 8h3v14H10V20zm8 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm16 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
                   <h3>Executive &amp; Family Vehicles</h3>
                   <p>The right car for work, family, and longer journeys.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="Executive & Family Vehicles">Book now</button>
                 </article>
                 <article class="card">
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" d="M24 8a16 16 0 1 1 0 32 16 16 0 0 1 0-32z"/><circle cx="24" cy="24" r="3" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="3" d="M24 12v12l8 4"/></svg>
                   <h3>GPS Tracked Cars</h3>
                   <p>Tracked vehicles so your journey is accountable end to end.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="GPS Tracked Cars">Book now</button>
                 </article>
                 <article class="card">
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" d="M24 8a16 16 0 1 1 0 32 16 16 0 0 1 0-32z"/><path fill="none" stroke="currentColor" stroke-width="3" d="M24 14v11l7 4"/></svg>
                   <h3>On-Time Guarantee</h3>
                   <p>24-hour mini cab service, fully licensed by Transport for London.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="On-Time Guarantee">Book now</button>
                 </article>
                 <article class="card">
                   <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 6c7 0 14 6 14 14 0 10-14 22-14 22S10 30 10 20c0-8 7-14 14-14zm0 8a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
                   <h3>E1–E18 &amp; Surrounding Areas</h3>
                   <p>Local coverage plus airport and station transfers across London.</p>
+                  <button type="button" class="card-book" data-book-service="ride" data-book-topic="E1–E18 & Surrounding Areas">Book now</button>
                 </article>
               </div>
             </div>
@@ -223,7 +231,8 @@
         </section>
       </div>
 
-      <aside class="page-book" id="bookings">
+      <aside class="page-book" id="bookings" aria-hidden="true">
+        <button type="button" class="book-sheet-close" id="book-sheet-close" aria-label="Close booking form">&times;</button>
         <form class="emergency" id="notify-form">
           <p class="emergency-kicker">Book now</p>
           <h3>Book a ride / tire service</h3>
@@ -249,6 +258,8 @@
         </form>
       </aside>
     </div>
+
+    <div class="book-sheet-backdrop" id="book-sheet-backdrop" hidden></div>
 
     <div class="stats">
       <div class="wrap stats-row">

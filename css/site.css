@@ -54,26 +54,34 @@ a { color: inherit; }
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
   color: var(--gold);
   min-width: 0;
+  flex: 1;
 }
-.brand-mark { width: 44px; height: 44px; flex-shrink: 0; }
-.brand strong {
-  display: block;
-  font-family: Cinzel, Georgia, serif;
-  font-size: 1.45rem;
-  letter-spacing: 0.06em;
-  line-height: 1;
+.brand-mark { width: 36px; height: 36px; flex-shrink: 0; }
+.brand span {
+  min-width: 0;
 }
+.brand strong,
 .brand em {
   display: block;
+  font-family: Cinzel, Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 700;
   font-style: normal;
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
   text-transform: uppercase;
   color: var(--gold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.brand em {
+  font-weight: 600;
+  opacity: 0.95;
 }
 .sr-only {
   position: absolute;
@@ -486,6 +494,36 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 .card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.card-book {
+  display: none;
+  width: auto;
+  margin-top: 14px;
+  padding: 8px 14px;
+  border: 1px solid rgba(197, 160, 89, 0.65);
+  border-radius: 8px;
+  background: var(--gold);
+  color: #1a1a1a;
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+.card-book:hover {
+  filter: brightness(1.05);
+}
+.brands-stage .card-book {
+  background: var(--gold);
+  color: #1a1a1a;
+}
+.book-sheet-close {
+  display: none;
+}
+.book-sheet-backdrop {
+  display: none;
+}
 .icon { width: 40px; height: 40px; color: var(--gold); margin-bottom: 10px; }
 .brands-stage .card {
   border-radius: 12px;
@@ -691,7 +729,7 @@ input, textarea, select {
   font: inherit;
   background: #fff;
 }
-button:not(.menu-toggle), .btn {
+button:not(.menu-toggle):not(.card-book):not(.office-tab), .btn {
   border: 0;
   background: var(--gold);
   color: #1a1a1a;
@@ -777,15 +815,81 @@ footer a { color: var(--gold-soft); }
     grid-template-columns: 1fr;
     margin-top: 88px;
   }
+  .page-rest { grid-column: 1; }
+  .card-book {
+    display: inline-block;
+  }
   .page-book {
-    grid-column: 1;
-    grid-row: auto;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    grid-column: unset;
+    grid-row: unset;
+    width: min(100%, 400px);
+    z-index: 90;
+    margin: 0;
+    padding: 52px 16px 24px;
+    background: #fff;
+    box-shadow: -16px 0 40px rgba(15, 28, 48, 0.28);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(105%);
+    transition: transform 0.35s ease;
+    pointer-events: none;
+  }
+  .page-book.is-open {
+    transform: translateX(0);
+    pointer-events: auto;
+    aria-hidden: false;
   }
   .page-book .emergency {
     position: static;
     max-height: none;
+    border-width: 0;
+    padding: 0;
   }
-  .page-rest { grid-column: 1; }
+  .book-sheet-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--navy);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .book-sheet-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 85;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: rgba(15, 28, 48, 0.48);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .book-sheet-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  body.book-sheet-open {
+    overflow: hidden;
+  }
   .office-bar { margin-top: 0; }
   .office-switch { width: min(100%, 420px); }
   .office-tab { flex: 1; min-width: 0; padding: 10px 8px 8px; }
@@ -806,7 +910,12 @@ footer a { color: var(--gold-soft); }
 
 @media (max-width: 560px) {
   .call span { font-size: 0.85rem; }
-  .brand strong { font-size: 1.2rem; }
+  .brand-mark { width: 32px; height: 32px; }
+  .brand strong,
+  .brand em {
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+  }
 }
 
 /* ~17" screens and up: pull hero up further; show garage (bottom anchor) */

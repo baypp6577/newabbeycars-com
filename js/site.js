@@ -109,11 +109,88 @@
     })
   })
 
-.document.querySelectorAll('input[name="service"]').forEach(function (radio) {
+  document.querySelectorAll('input[name="service"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
       var office =
         radio.value === 'ride' ? 'cars' : radio.value === 'tire' ? 'tires' : 'both'
       setOffice(office, { skipForm: true, scroll: true })
+    })
+  })
+
+  function isMobileBookSheet() {
+    return window.matchMedia('(max-width: 900px)').matches
+  }
+
+  function openBookSheet() {
+    var box = $('bookings')
+    var backdrop = $('book-sheet-backdrop')
+    if (!box) return
+    box.classList.add('is-open')
+    box.setAttribute('aria-hidden', 'false')
+    if (backdrop) {
+      backdrop.hidden = false
+      backdrop.classList.add('is-open')
+    }
+    document.body.classList.add('book-sheet-open')
+    setTimeout(function () {
+      var phone = $('notify-phone')
+      if (phone) phone.focus()
+    }, 320)
+  }
+
+  function closeBookSheet() {
+    var box = $('bookings')
+    var backdrop = $('book-sheet-backdrop')
+    if (box) {
+      box.classList.remove('is-open')
+      box.setAttribute('aria-hidden', 'true')
+    }
+    if (backdrop) {
+      backdrop.classList.remove('is-open')
+      backdrop.hidden = true
+    }
+    document.body.classList.remove('book-sheet-open')
+  }
+
+  function bookFromCard(service, topic) {
+    if (!isMobileBookSheet()) return
+    var office = service === 'ride' ? 'cars' : service === 'both' ? 'both' : 'tires'
+    setOffice(office, { skipForm: true })
+    var radio = document.querySelector('input[name="service"][value="' + service + '"]')
+    if (radio) radio.checked = true
+    var ta = $('notify-message')
+    if (ta && topic) {
+      var prefix = 'Interested in: ' + topic
+      var current = ta.value.trim()
+      if (!current || current.indexOf('Interested in:') === 0) ta.value = prefix
+    }
+    openBookSheet()
+  }
+
+  document.querySelectorAll('.card-book').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      bookFromCard(btn.getAttribute('data-book-service') || 'tire', btn.getAttribute('data-book-topic') || '')
+    })
+  })
+
+  var bookClose = $('book-sheet-close')
+  var bookBackdrop = $('book-sheet-backdrop')
+  if (bookClose) bookClose.addEventListener('click', closeBookSheet)
+  if (bookBackdrop) bookBackdrop.addEventListener('click', closeBookSheet)
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeBookSheet()
+  })
+  window.addEventListener('resize', function () {
+    if (!isMobileBookSheet()) closeBookSheet()
+  })
+
+  // Mobile nav “Bookings” opens the sheet instead of scrolling an off-canvas form
+  document.querySelectorAll('a[href="#bookings"]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (!isMobileBookSheet()) return
+      event.preventDefault()
+      closeMenu()
+      openBookSheet()
     })
   })
 
