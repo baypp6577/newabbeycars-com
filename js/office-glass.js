@@ -1,6 +1,6 @@
 /**
- * Three.js glass cab backdrop behind the "I need" office switcher.
- * Soft glass car + cab hat + slow drift. Quiet no-op if WebGL unavailable.
+ * Three.js glass cab behind the "I need" switcher.
+ * Car-shaped glass body with glowing glass tyres under the chassis.
  */
 (function () {
   var canvas = document.getElementById('office-glass-canvas')
@@ -24,160 +24,159 @@
   renderer.setClearColor(0x000000, 0)
 
   var scene = new THREE.Scene()
-  var camera = new THREE.PerspectiveCamera(36, 1, 0.1, 40)
-  camera.position.set(0, 0.35, 5.4)
+  var camera = new THREE.PerspectiveCamera(34, 1, 0.1, 40)
+  camera.position.set(0, 0.55, 5.8)
 
-  var group = new THREE.Group()
-  scene.add(group)
+  var car = new THREE.Group()
+  scene.add(car)
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55))
-  var key = new THREE.DirectionalLight(0xfff4dd, 0.85)
-  key.position.set(2.5, 3.5, 4)
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6))
+  var key = new THREE.DirectionalLight(0xfff4dd, 0.95)
+  key.position.set(2.2, 3.2, 4)
   scene.add(key)
-  var rimLight = new THREE.DirectionalLight(0xc5a059, 0.45)
-  rimLight.position.set(-3, 1.5, -2)
+  var rimLight = new THREE.DirectionalLight(0xc5a059, 0.4)
+  rimLight.position.set(-3, 2, -1)
   scene.add(rimLight)
-  var fill = new THREE.DirectionalLight(0x5b7db2, 0.35)
-  fill.position.set(-2, -1, 3)
+  var fill = new THREE.DirectionalLight(0x6b8ec4, 0.4)
+  fill.position.set(-2, -0.5, 3)
   scene.add(fill)
 
-  var glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0xb9d0ef,
-    metalness: 0.05,
-    roughness: 0.08,
-    transmission: 0.78,
-    thickness: 0.55,
+  var glassBody = new THREE.MeshPhysicalMaterial({
+    color: 0x1a3358,
+    metalness: 0.25,
+    roughness: 0.12,
+    transmission: 0.55,
+    thickness: 0.5,
     transparent: true,
-    opacity: 0.92,
-    envMapIntensity: 1.1,
+    opacity: 0.9,
     clearcoat: 1,
     clearcoatRoughness: 0.08,
   })
-  var navyGlass = new THREE.MeshPhysicalMaterial({
-    color: 0x1a3358,
-    metalness: 0.55,
-    roughness: 0.22,
-    transmission: 0.35,
-    thickness: 0.4,
+  var glassCabin = new THREE.MeshPhysicalMaterial({
+    color: 0xc5d8f2,
+    metalness: 0.02,
+    roughness: 0.04,
+    transmission: 0.88,
+    thickness: 0.35,
     transparent: true,
-    opacity: 0.88,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.15,
+    opacity: 0.85,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
   })
   var goldMat = new THREE.MeshStandardMaterial({
     color: 0xc5a059,
-    metalness: 0.9,
-    roughness: 0.22,
+    metalness: 0.85,
+    roughness: 0.2,
     emissive: 0xc5a059,
-    emissiveIntensity: 0.18,
+    emissiveIntensity: 0.2,
   })
   var hatMat = new THREE.MeshStandardMaterial({
     color: 0xe11d48,
-    metalness: 0.35,
-    roughness: 0.35,
-    emissive: 0x9f1239,
+    metalness: 0.3,
+    roughness: 0.3,
+    emissive: 0xbe123c,
+    emissiveIntensity: 0.35,
+  })
+  var glassTireMat = new THREE.MeshPhysicalMaterial({
+    color: 0xe0c37a,
+    metalness: 0.1,
+    roughness: 0.05,
+    transmission: 0.75,
+    thickness: 0.35,
+    transparent: true,
+    opacity: 0.92,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    emissive: 0xc5a059,
+    emissiveIntensity: 0.35,
+    side: THREE.DoubleSide,
+  })
+  var glassRimMat = new THREE.MeshPhysicalMaterial({
+    color: 0xeef4ff,
+    metalness: 0.05,
+    roughness: 0.03,
+    transmission: 0.9,
+    thickness: 0.2,
+    transparent: true,
+    opacity: 0.8,
+    emissive: 0x93c5fd,
     emissiveIntensity: 0.25,
   })
 
-  var car = new THREE.Group()
-  var body = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.42, 0.95), navyGlass)
-  body.position.y = 0
-  car.add(body)
-  var cabin = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.42, 0.82), glassMat)
-  cabin.position.set(-0.12, 0.38, 0)
+  // Chassis / body — car silhouette
+  var lower = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.38, 1.05), glassBody)
+  lower.position.set(0, 0.05, 0)
+  car.add(lower)
+  // Hood / nose taper feel
+  var nose = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.28, 0.95), glassBody)
+  nose.position.set(1.35, 0.0, 0)
+  car.add(nose)
+  // Cabin / greenhouse
+  var cabin = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.48, 0.92), glassCabin)
+  cabin.position.set(-0.15, 0.42, 0)
   car.add(cabin)
-  var bumper = new THREE.Mesh(new THREE.BoxGeometry(2.28, 0.1, 0.98), goldMat)
-  bumper.position.y = -0.2
-  car.add(bumper)
+  // Boot
+  var boot = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.3, 0.92), glassBody)
+  boot.position.set(-1.15, 0.18, 0)
+  car.add(boot)
+  // Side skirts / gold trim
+  var trim = new THREE.Mesh(new THREE.BoxGeometry(2.55, 0.06, 1.08), goldMat)
+  trim.position.set(0, -0.12, 0)
+  car.add(trim)
 
-  // Defined cab hat (roof light)
-  var hatStem = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.12, 0.18), hatMat)
-  hatStem.position.set(0.05, 0.65, 0)
+  // Cab roof light (hat)
+  var hatStem = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.1, 0.16), hatMat)
+  hatStem.position.set(0.05, 0.72, 0)
   car.add(hatStem)
-  var hat = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.22, 0.28), hatMat)
-  hat.position.set(0.05, 0.8, 0)
+  var hat = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.2, 0.26), hatMat)
+  hat.position.set(0.05, 0.88, 0)
   car.add(hat)
-  var hatGlow = new THREE.PointLight(0xfb7185, 0.55, 3.5)
-  hatGlow.position.set(0.05, 0.95, 0.4)
+  var hatGlow = new THREE.PointLight(0xfb7185, 0.7, 4)
+  hatGlow.position.set(0.05, 1.0, 0.35)
   car.add(hatGlow)
 
-  function glassTire(radius, tube, color) {
+  function makeWheel() {
     var g = new THREE.Group()
-    var tread = new THREE.Mesh(
-      new THREE.TorusGeometry(radius, tube, 18, 72),
-      new THREE.MeshPhysicalMaterial({
-        color: color || 0xc5a059,
-        metalness: 0.15,
-        roughness: 0.06,
-        transmission: 0.82,
-        thickness: 0.45,
-        transparent: true,
-        opacity: 0.9,
-        clearcoat: 1,
-        clearcoatRoughness: 0.05,
-        side: THREE.DoubleSide,
-      })
-    )
-    var rimRing = new THREE.Mesh(
-      new THREE.TorusGeometry(radius * 0.62, tube * 0.35, 12, 48),
-      new THREE.MeshPhysicalMaterial({
-        color: 0xe8f0ff,
-        metalness: 0.05,
-        roughness: 0.04,
-        transmission: 0.9,
-        thickness: 0.3,
-        transparent: true,
-        opacity: 0.75,
-        clearcoat: 1,
-      })
-    )
-    var hub = new THREE.Mesh(
-      new THREE.SphereGeometry(tube * 1.1, 16, 16),
-      goldMat
-    )
+    var tread = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.1, 16, 48), glassTireMat)
+    tread.rotation.y = Math.PI / 2
+    var rim = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.04, 12, 32), glassRimMat)
+    rim.rotation.y = Math.PI / 2
+    var hub = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), goldMat)
+    var glow = new THREE.PointLight(0xe0c37a, 0.55, 2.2)
+    glow.position.set(0, 0, 0.15)
     g.add(tread)
-    g.add(rimRing)
+    g.add(rim)
     g.add(hub)
+    g.add(glow)
+    g.userData.tread = tread
     return g
   }
 
-  function wheel(x) {
-    var w = glassTire(0.26, 0.08, 0x9eb6d8)
-    w.rotation.y = Math.PI / 2
-    w.position.set(x, -0.28, 0.5)
-    car.add(w)
-    var w2 = glassTire(0.26, 0.08, 0x9eb6d8)
-    w2.rotation.y = Math.PI / 2
-    w2.position.set(x, -0.28, -0.5)
-    car.add(w2)
-  }
-  wheel(-0.7)
-  wheel(0.75)
+  // Wheels sit under the body like real tyres
+  var wheelFL = makeWheel()
+  wheelFL.position.set(0.85, -0.38, 0.55)
+  car.add(wheelFL)
+  var wheelFR = makeWheel()
+  wheelFR.position.set(0.85, -0.38, -0.55)
+  car.add(wheelFR)
+  var wheelRL = makeWheel()
+  wheelRL.position.set(-0.95, -0.38, 0.55)
+  car.add(wheelRL)
+  var wheelRR = makeWheel()
+  wheelRR.position.set(-0.95, -0.38, -0.55)
+  car.add(wheelRR)
 
-  car.position.set(0, -0.05, 0)
-  car.scale.set(0.9, 0.9, 0.9)
-  group.add(car)
+  var wheels = [wheelFL, wheelFR, wheelRL, wheelRR]
 
-  // Large glass tyres flanking the cab
-  var tire = glassTire(1.45, 0.18, 0xc5a059)
-  tire.rotation.x = Math.PI / 2.15
-  tire.position.set(-1.85, 0.15, -0.45)
-  group.add(tire)
-  var tire2 = glassTire(1.45, 0.18, 0xc5a059)
-  tire2.rotation.x = Math.PI / 2.15
-  tire2.position.set(1.85, 0.1, -0.4)
-  group.add(tire2)
-  var tireMid = glassTire(0.95, 0.12, 0xb9d0ef)
-  tireMid.rotation.x = Math.PI / 2.4
-  tireMid.position.set(0, 0.55, -1.1)
-  group.add(tireMid)
+  car.position.set(0, 0.15, 0)
+  car.scale.set(1.05, 1.05, 1.05)
 
-  var count = 180
+  var count = 120
   var positions = new Float32Array(count * 3)
   for (var i = 0; i < count; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 8
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 2.2
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 3 - 1
+    positions[i * 3] = (Math.random() - 0.5) * 6
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 1.6 + 0.4
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 2 - 0.5
   }
   var pGeo = new THREE.BufferGeometry()
   pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
@@ -185,9 +184,9 @@
     pGeo,
     new THREE.PointsMaterial({
       color: 0xe0c37a,
-      size: 0.03,
+      size: 0.025,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.4,
       depthWrite: false,
       sizeAttenuation: true,
     })
@@ -221,13 +220,13 @@
     requestAnimationFrame(tick)
     if (!running) return
     var t = clock.getElapsedTime()
-    car.rotation.y = Math.sin(t * 0.4) * 0.22
-    car.position.y = -0.05 + Math.sin(t * 0.9) * 0.05
-    tire.rotation.z = t * 0.35
-    tire2.rotation.z = -t * 0.28
-    tireMid.rotation.z = t * 0.22
-    group.position.y = Math.sin(t * 0.35) * 0.04
-    sparkle.rotation.y = t * 0.04
+    car.rotation.y = Math.sin(t * 0.35) * 0.18
+    car.position.y = 0.15 + Math.sin(t * 0.85) * 0.03
+    for (var w = 0; w < wheels.length; w++) {
+      var tread = wheels[w].userData.tread
+      if (tread) tread.rotation.z = t * (w % 2 === 0 ? 1.4 : -1.4)
+    }
+    sparkle.rotation.y = t * 0.03
     renderer.render(scene, camera)
   }
   tick()
