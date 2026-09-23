@@ -62,11 +62,17 @@
       tab.setAttribute('aria-selected', active ? 'true' : 'false')
     })
 
+    var shown = []
     document.querySelectorAll('[data-office-panel]').forEach(function (panel) {
       var kind = panel.getAttribute('data-office-panel')
       var show = office === 'both' || office === kind
-      if (show) panel.removeAttribute('hidden')
-      else panel.setAttribute('hidden', '')
+      panel.classList.remove('fade-up-in')
+      if (show) {
+        panel.removeAttribute('hidden')
+        shown.push(panel)
+      } else {
+        panel.setAttribute('hidden', '')
+      }
     })
 
     if (!opts.skipForm) {
@@ -83,7 +89,17 @@
           : office === 'tires'
             ? document.getElementById('abbey-tires')
             : document.getElementById('brands-stage')
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // Restart fade-up after paint so newly shown panels animate in
+      requestAnimationFrame(function () {
+        shown.forEach(function (panel) {
+          void panel.offsetWidth
+          panel.classList.add('fade-up-in')
+        })
+        if (target) {
+          var top = target.getBoundingClientRect().top + window.pageYOffset - 72
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+        }
+      })
     }
   }
 
@@ -93,11 +109,11 @@
     })
   })
 
-  document.querySelectorAll('input[name="service"]').forEach(function (radio) {
+.document.querySelectorAll('input[name="service"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
       var office =
         radio.value === 'ride' ? 'cars' : radio.value === 'tire' ? 'tires' : 'both'
-      setOffice(office, { skipForm: true })
+      setOffice(office, { skipForm: true, scroll: true })
     })
   })
 
