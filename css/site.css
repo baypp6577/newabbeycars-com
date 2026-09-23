@@ -269,17 +269,15 @@ a { color: inherit; }
 }
 .office-bar-label {
   margin: 0;
-  padding: 0;
+  padding: 8px 0;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #fff;
   background: transparent;
   border-radius: 0;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  line-height: 1;
+  line-height: 1.2;
   white-space: nowrap;
   align-self: center;
   text-shadow: 0 1px 3px rgba(15, 28, 48, 0.55);
@@ -827,6 +825,6 @@ footer a { color: var(--gold-soft); }
     transform: translate(-50%, 45%);
   }
   .page-split {
-    margin-top: 110px;
+    margin-top: 210px;
   }
 }
