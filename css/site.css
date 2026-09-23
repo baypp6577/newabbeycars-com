@@ -157,31 +157,39 @@ a { color: inherit; }
 .hero {
   position: relative;
   overflow: hidden;
+  min-height: 520px;
 }
 .hero-photo {
-  position: relative;
-  height: 420px;
-  background: #1a1a1a center / cover no-repeat;
+  position: absolute;
+  inset: 0;
+  min-height: 520px;
+  height: 100%;
+  background-color: #1a1a1a;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .hero-copy {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 1;
-  padding: 0;
+  padding: 20px 0 0;
+  min-height: 520px;
 }
 .badge {
   display: inline-block;
   max-width: 22rem;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.42);
   color: var(--ink);
   font-weight: 700;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 14px 16px;
-  border: 2px solid var(--gold);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(15, 28, 48, 0.14);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
 }
 
 .page-split {
@@ -392,7 +400,7 @@ a { color: inherit; }
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
 }
 
-section { padding: 56px 0; }
+section { padding: 0; }
 h2 {
   font-family: "Source Sans 3", sans-serif;
   color: var(--gold);
@@ -624,8 +632,8 @@ footer a { color: var(--gold-soft); }
 }
 .book-list small { color: var(--muted); }
 
-.how { padding: 40px 0 24px; }
-#coverage { padding: 24px 0 40px; }
+.how { padding: 24px 0 16px; }
+#coverage { padding: 16px 0 28px; }
 
 @media (max-width: 1024px) {
   .topbar-inner {
@@ -685,8 +693,10 @@ footer a { color: var(--gold-soft); }
   .brands-stage { padding: 22px 12px 16px; border-radius: 14px; }
   .flow-body { padding-top: 18px; }
   .cards, .cards-3, .cards-2, .rescue-grid, .steps, .grid-2 { grid-template-columns: 1fr; }
-  .hero-photo { height: 280px; }
-  .hero-copy { top: 8px; }
+  .hero,
+  .hero-photo,
+  .hero-copy { min-height: 340px; }
+  .hero-copy { padding-top: 14px; }
   .call { white-space: normal; }
   .tire-visual { justify-content: center; }
   .tire-photo { height: 200px; }
