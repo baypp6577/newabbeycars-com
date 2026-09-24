@@ -53,6 +53,46 @@
     el.textContent = text
   }
 
+  function applyServiceCopy(service) {
+    var title = $('book-form-title')
+    var ta = $('notify-message')
+    var copy = {
+      ride: {
+        title: 'Book a ride',
+        placeholder: 'Pickup, destination, luggage…',
+      },
+      tire: {
+        title: 'Book a tyre service',
+        placeholder: 'Tyre size, puncture or fitting details…',
+      },
+      mechanic: {
+        title: 'Book a mechanic',
+        placeholder: 'Mechanic work needed — brakes, diagnostics, repairs…',
+      },
+      both: {
+        title: 'Book a ride and yard work',
+        placeholder: 'Pickup, destination, tyre or mechanic details…',
+      },
+    }
+    var selected = copy[service] || copy.tire
+    if (title) title.textContent = selected.title
+    if (ta) {
+      ta.placeholder = selected.placeholder
+      var current = ta.value
+      if (service === 'mechanic') {
+        ta.value = current
+          .replace(/\btyres?\b/gi, 'mechanic')
+          .replace(/\btires?\b/gi, 'mechanic')
+          .replace(/\bTire Center\b/gi, 'Full Mechanic')
+          .replace(/\bTyre Center\b/gi, 'Full Mechanic')
+      } else if (service === 'tire') {
+        ta.value = current
+          .replace(/\bmechanic\b/gi, 'tyre')
+          .replace(/\bFull Mechanic\b/gi, 'Tire Center')
+      }
+    }
+  }
+
   function setOffice(office, opts) {
     opts = opts || {}
     var tabs = document.querySelectorAll('.office-tab')
@@ -80,6 +120,7 @@
       var value = map[office] || 'tire'
       var radio = document.querySelector('input[name="service"][value="' + value + '"]')
       if (radio) radio.checked = true
+      applyServiceCopy(value)
     }
 
     if (opts.scroll) {
@@ -112,7 +153,12 @@
   document.querySelectorAll('input[name="service"]').forEach(function (radio) {
     radio.addEventListener('change', function () {
       var office =
-        radio.value === 'ride' ? 'cars' : radio.value === 'tire' ? 'tires' : 'both'
+        radio.value === 'ride'
+          ? 'cars'
+          : radio.value === 'tire' || radio.value === 'mechanic'
+            ? 'tires'
+            : 'both'
+      applyServiceCopy(radio.value)
       setOffice(office, { skipForm: true, scroll: true })
     })
   })
@@ -154,15 +200,26 @@
 
   function bookFromCard(service, topic) {
     if (!isMobileBookSheet()) return
-    var office = service === 'ride' ? 'cars' : service === 'both' ? 'both' : 'tires'
+    var office =
+      service === 'ride' ? 'cars' : service === 'both' ? 'both' : 'tires'
     setOffice(office, { skipForm: true })
     var radio = document.querySelector('input[name="service"][value="' + service + '"]')
     if (radio) radio.checked = true
+    applyServiceCopy(service)
     var ta = $('notify-message')
     if (ta && topic) {
-      var prefix = 'Interested in: ' + topic
+      var label = topic
+      if (service === 'mechanic') {
+        label = String(topic).replace(/\btyres?\b/gi, 'mechanic').replace(/\btires?\b/gi, 'mechanic')
+      }
+      var prefix = 'Interested in: ' + label
       var current = ta.value.trim()
       if (!current || current.indexOf('Interested in:') === 0) ta.value = prefix
+      if (service === 'mechanic') {
+        ta.value = ta.value
+          .replace(/\btyres?\b/gi, 'mechanic')
+          .replace(/\btires?\b/gi, 'mechanic')
+      }
     }
     openBookSheet()
   }
@@ -196,6 +253,7 @@
 
   // Default: Tyres office (matches Loveable mobile jump + default form)
   setOffice('tires', { skipForm: true })
+  applyServiceCopy('tire')
 
   var notifyForm = $('notify-form')
   if (notifyForm) {

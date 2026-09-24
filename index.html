@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css?v=20260923d">
+  <link rel="stylesheet" href="css/site.css?v=20260924a">
 </head>
 <body>
   <div id="site-main">
@@ -129,7 +129,7 @@
               <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M14 8h6l10 18h8v4H28L18 12h-4v24H8V8h6zm22 22 4 10H18l4-10h14z"/></svg>
               <h3>Full Mechanic</h3>
               <p>We get you and your car back serviced — brakes, diagnostics and repairs.</p>
-              <button type="button" class="card-book" data-book-service="tire" data-book-topic="Full Mechanic">Book now</button>
+              <button type="button" class="card-book" data-book-service="mechanic" data-book-topic="Full Mechanic">Book now</button>
             </article>
           </div>
         </div>
@@ -232,14 +232,20 @@
       </div>
 
       <aside class="page-book" id="bookings" aria-hidden="true">
-        <button type="button" class="book-sheet-close" id="book-sheet-close" aria-label="Close booking form">&times;</button>
+        <div class="book-sheet-bar">
+          <p class="book-sheet-bar-title">Book now</p>
+          <button type="button" class="book-sheet-close" id="book-sheet-close" aria-label="Close booking form">
+            <span class="book-sheet-close-x" aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <form class="emergency" id="notify-form">
-          <p class="emergency-kicker">Book now</p>
-          <h3>Book a ride / tire service</h3>
+          <p class="emergency-kicker" id="book-form-kicker">Book now</p>
+          <h3 id="book-form-title">Book a ride / tyre service</h3>
           <fieldset class="choice choice-prominent">
             <legend>I need</legend>
             <label class="choice-pill"><input type="radio" name="service" value="ride" required> A ride</label>
-            <label class="choice-pill"><input type="radio" name="service" value="tire" checked> Tire service</label>
+            <label class="choice-pill"><input type="radio" name="service" value="tire" checked> Tyre service</label>
+            <label class="choice-pill"><input type="radio" name="service" value="mechanic"> Mechanic</label>
             <label class="choice-pill"><input type="radio" name="service" value="both"> Both</label>
           </fieldset>
           <label for="notify-phone">Phone <span class="req">required</span></label>
