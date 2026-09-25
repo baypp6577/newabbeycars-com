@@ -53,6 +53,30 @@
     el.textContent = text
   }
 
+  function serviceLabel(service) {
+    if (service === 'ride') return 'a ride'
+    if (service === 'tire') return 'tyre service'
+    if (service === 'mechanic') return 'mechanic'
+    if (service === 'both' || service === 'all') return 'all services (ride, tyres and mechanic)'
+    return 'enquiry'
+  }
+
+  function defaultSpecialRequest(service) {
+    if (service === 'ride') return 'Interested in: a ride / mini cab'
+    if (service === 'tire') return 'Interested in: tyre service'
+    if (service === 'mechanic') return 'Interested in: mechanic work'
+    if (service === 'both' || service === 'all') {
+      return 'Interested in: all services (ride, tyres and mechanic)'
+    }
+    return ''
+  }
+
+  function isAutoSpecialRequest(text) {
+    var t = String(text || '').trim()
+    if (!t) return true
+    return t.indexOf('Interested in:') === 0
+  }
+
   function applyServiceCopy(service) {
     var title = $('book-form-title')
     var ta = $('notify-message')
@@ -70,16 +94,22 @@
         placeholder: 'Mechanic work needed — brakes, diagnostics, repairs…',
       },
       both: {
-        title: 'Book a ride and yard work',
-        placeholder: 'Pickup, destination, tyre or mechanic details…',
+        title: 'Book all services',
+        placeholder: 'Pickup, destination, tyre size, mechanic work…',
+      },
+      all: {
+        title: 'Book all services',
+        placeholder: 'Pickup, destination, tyre size, mechanic work…',
       },
     }
     var selected = copy[service] || copy.tire
     if (title) title.textContent = selected.title
     if (ta) {
       ta.placeholder = selected.placeholder
-      var current = ta.value
-      if (service === 'mechanic') {
+      var current = ta.value.trim()
+      if (isAutoSpecialRequest(current)) {
+        ta.value = defaultSpecialRequest(service)
+      } else if (service === 'mechanic') {
         ta.value = current
           .replace(/\btyres?\b/gi, 'mechanic')
           .replace(/\btires?\b/gi, 'mechanic')
@@ -275,7 +305,7 @@
       var when = notifyForm.when.value.trim()
       var request = notifyForm.request.value.trim()
       if (!service) {
-        setMsg(msg, false, 'Please choose a ride, tire service, or both.')
+        setMsg(msg, false, 'Please choose a ride, tyre service, mechanic, or all.')
         return
       }
       if (!phone) {
@@ -289,7 +319,10 @@
       if (!name) name = phone || 'Website enquiry'
       // Contact API expects an email field; phone-first bookings may omit it.
       if (!email) email = 'noreply@hometolive.com'
-      var serviceLabel = service === 'ride' ? 'a ride' : service === 'tire' ? 'tire service' : 'a ride and tire service'
+      var label = serviceLabel(service)
+      if (isAutoSpecialRequest(request) || !request) {
+        request = defaultSpecialRequest(service)
+      }
       btn.disabled = true
       fetch(CONTACT_URL, {
         method: 'POST',
@@ -298,10 +331,10 @@
           name: name,
           email: email,
           phone: phone,
-          subject: 'New Abbey Cars — ' + serviceLabel,
+          subject: 'New Abbey Cars — ' + label,
           message:
             'Booking from the Abbey Cars site. Service: ' +
-            serviceLabel +
+            label +
             '. When: ' +
             when +
             '. Phone: ' +
